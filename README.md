@@ -1,30 +1,61 @@
-# React + TypeScript + Vite
+# Preview website: https://technext-assignment.netlify.app
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Features
 
-Currently, two official plugins are available:
+- Make a user list page where I want to see all the “Users” in a card view.
+  - List all the users in a card layout as the page loads.
+  - Each card will show the following information about the users:
+    - Avatar
+    - First Name
+    - Last Name
+    - Email
+    - Address (Street, Suite, City)
+    - Company Name
+- As a user, If I click on a user’s name, it will open a separate page and will show user
+  details with the following information:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+  - Avatar
+  - First Name
+  - Last Name
+  - Email
+  - Address (Street, Suite, City)
+  - Company Name
 
-## Expanding the ESLint configuration
+- Add a search input field to the top of the list. If I type here, it will search based on the
+  user's name.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- Add a select input field to the top of the list to sort the users with the following options:
 
-- Configure the top-level `parserOptions` property like this:
+  - Sort by name
+  - Sort by email
+  - Sort by Company name
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+- Add a form in the user list page where I can add users with all the information mentioned
+  above.
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Tech Stack
+
+**Client:** React, TypeScript, Tailwindcss
+
+## Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone [repository URL]
+   cd improved-tasker
+   ```
+
+2. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+3. To start the development server, run:
+
+   ```bash
+   npm run dev
+   ```
+
+   Access the website at `http://localhost:5173`.
