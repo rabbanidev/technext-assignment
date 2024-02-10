@@ -7,7 +7,10 @@ const Navbar = () => {
         <a href="/" className="font-bold text-xl capitalize">
           TECHNEXT ASSIGNMENT
         </a>
-        <a href="" target="_blank">
+        <a
+          href="https://github.com/rabbanidev/technext-assignment"
+          target="_blank"
+        >
           <BiLogoGithub size={26} />
         </a>
       </div>

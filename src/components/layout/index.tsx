@@ -6,7 +6,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
   return (
     <>
       <Navbar />
-      <main className="py-12">{children}</main>
+      <main className="py-12 min-h-[70vh]">{children}</main>
       <Footer />
     </>
   );

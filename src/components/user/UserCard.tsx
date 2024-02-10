@@ -1,26 +1,26 @@
 import { BiSolidLocationPlus, BiLogoGmail, BiBuildings } from "react-icons/bi";
 import { IUser } from "../../interface/user";
+import { Link } from "react-router-dom";
 
 type IUserProps = {
   user: IUser;
 };
 
 const UserCard = ({ user }: IUserProps) => {
-  const { fullName, email, image, address, company } = user;
+  const { id, fullName, email, image, address, company } = user;
   const { address: street, city, state } = address;
   const { name: companyName } = company;
 
   return (
     <div className="col-span-1 max-w-sm bg-white shadow-lg rounded-lg overflow-hidden">
-      <img
-        className="w-full h-56 object-cover object-center"
-        src={image}
-        alt={fullName}
-      />
+      <img className="w-full h-56" src={image} alt={fullName} />
       <div className="py-4 px-6">
-        <h1 className="text-2xl font-semibold capitalize text-gray-800">
+        <Link
+          to={`/users/${id}`}
+          className="text-2xl font-semibold capitalize text-gray-800 hover:underline"
+        >
           {fullName}
-        </h1>
+        </Link>
 
         <div className="flex items-center mt-4 text-gray-700">
           <BiLogoGmail />

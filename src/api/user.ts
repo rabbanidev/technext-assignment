@@ -1,5 +1,7 @@
 import { IUser } from "../interface/user";
 
+const USER_API_URL: string = "https://dummyjson.com/users";
+
 export const fetchUsers = async (
   searchValue: string
 ): Promise<{
@@ -8,14 +10,18 @@ export const fetchUsers = async (
   skip: number;
   limit: number;
 }> => {
-  let url = "https://dummyjson.com/users";
+  let url = USER_API_URL;
 
   if (searchValue) {
     url += `/search?q=${searchValue}`;
   }
 
-  // console.log(url);
+  const result = await fetch(url);
+  return result.json();
+};
 
+export const fetchUser = async (userId: string | number): Promise<IUser> => {
+  const url = `${USER_API_URL}/${userId}`;
   const result = await fetch(url);
   return result.json();
 };

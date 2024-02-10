@@ -91,7 +91,7 @@ const UserList = () => {
   } else if (!loading && error) {
     content = <ErrorMessage message={error} />;
   } else if (!loading && !error && userList.length === 0) {
-    content = <p className="text-2xl text-center">User list is empty!</p>;
+    content = <ErrorMessage message="User list is empty!" />;
   } else {
     content = (
       <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-7 lg:grid-cols-3 lg:gap-10">
