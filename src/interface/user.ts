@@ -14,6 +14,7 @@ export type IUser = {
   firstName: string;
   lastName: string;
   maidenName: string;
+  fullName: string;
   email: string;
   image: string;
   address: IAddress;

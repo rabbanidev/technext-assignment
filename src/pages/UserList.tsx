@@ -10,7 +10,12 @@ import { fetchUsers } from "../api/user";
 import UserLoading from "../components/user/UserLoading";
 import ErrorMessage from "../components/ErrorMessage";
 
-const sortOptions = [
+type ISort = {
+  label: string;
+  value: string;
+};
+
+const sortOptions: ISort[] = [
   {
     label: "Name",
     value: "username",
@@ -30,7 +35,9 @@ const UserList = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
   const [users, setUsers] = useState<IUser[]>([]);
+  const [sortBy, setSortBy] = useState<string>("");
 
+  // fetching users data
   useEffect(() => {
     let ignore = false;
 
@@ -39,7 +46,11 @@ const UserList = () => {
       try {
         const json = await fetchUsers(searchTerm);
         if (!ignore) {
-          setUsers(json.users);
+          const jsonUsers = json.users.map((user) => ({
+            ...user,
+            fullName: `${user.firstName} ${user.maidenName} ${user.lastName}`,
+          }));
+          setUsers(jsonUsers);
         }
       } catch (error: any) {
         console.log("Error: ", error);
@@ -57,7 +68,21 @@ const UserList = () => {
   }, [searchTerm]);
 
   // derived state
-  // let userList: IUser[] = [];
+  const userList = users.slice().sort((a, b) => {
+    switch (sortBy) {
+      case "username":
+        return a.fullName.localeCompare(b.fullName);
+
+      case "email":
+        return a.email.localeCompare(b.email);
+
+      case "companyName":
+        return a.company.name.localeCompare(b.company.name);
+
+      default:
+        return 0;
+    }
+  });
 
   // let decided what to render
   let content = null;
@@ -65,12 +90,12 @@ const UserList = () => {
     content = <UserLoading />;
   } else if (!loading && error) {
     content = <ErrorMessage message={error} />;
-  } else if (!loading && !error && users.length === 0) {
+  } else if (!loading && !error && userList.length === 0) {
     content = <p className="text-2xl text-center">User list is empty!</p>;
   } else {
     content = (
       <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-7 lg:grid-cols-3 lg:gap-10">
-        {users.map((user) => (
+        {userList.map((user) => (
           <UserCard key={user.id} user={user} />
         ))}
       </div>
@@ -87,7 +112,14 @@ const UserList = () => {
               onSearch={(searchValue) => setSearchTerm(searchValue)}
             />
             <div className="mt-5 flex flex-col md:flex-row md:items-center md:mt-0 gap-5">
-              <SortDropdown options={sortOptions} />
+              <SortDropdown
+                options={sortOptions}
+                value={sortBy}
+                onSort={(e) => {
+                  console.log(e.target.value);
+                  setSortBy(e.target.value);
+                }}
+              />
               <a
                 href="#"
                 className="py-2 px-5 font-medium text-gray-600 focus:outline-none bg-white rounded-md"

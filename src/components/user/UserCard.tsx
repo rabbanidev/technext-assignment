@@ -6,12 +6,9 @@ type IUserProps = {
 };
 
 const UserCard = ({ user }: IUserProps) => {
-  const { firstName, maidenName, lastName, email, image, address, company } =
-    user;
+  const { fullName, email, image, address, company } = user;
   const { address: street, city, state } = address;
   const { name: companyName } = company;
-
-  const fullName = `${firstName} ${maidenName} ${lastName}`;
 
   return (
     <div className="col-span-1 max-w-sm bg-white shadow-lg rounded-lg overflow-hidden">
@@ -22,7 +19,7 @@ const UserCard = ({ user }: IUserProps) => {
       />
       <div className="py-4 px-6">
         <h1 className="text-2xl font-semibold capitalize text-gray-800">
-          {fullName} <span>{}</span>
+          {fullName}
         </h1>
 
         <div className="flex items-center mt-4 text-gray-700">
