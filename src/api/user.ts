@@ -25,3 +25,15 @@ export const fetchUser = async (userId: string | number): Promise<IUser> => {
   const result = await fetch(url);
   return result.json();
 };
+
+export const createUser = async (
+  userData: Partial<IUser>
+): Promise<Partial<IUser>> => {
+  const url = `${USER_API_URL}/add`;
+  const result = await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(userData),
+  });
+  return result.json();
+};
