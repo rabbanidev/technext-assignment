@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { IUser } from "../interface/user";
 import { fetchUsers } from "../api/user";
 import UserList from "../components/user/UserList";
+import { Link } from "react-router-dom";
 
 type ISort = {
   label: string;
@@ -66,7 +67,7 @@ const UserBoard = () => {
     };
   }, [searchTerm]);
 
-  // derived state
+  // derived state (sorting)
   const userList = users.slice().sort((a, b) => {
     switch (sortBy) {
       case "username":
@@ -101,12 +102,12 @@ const UserBoard = () => {
                   setSortBy(e.target.value);
                 }}
               />
-              <a
-                href="#"
+              <Link
+                to="/users/create"
                 className="py-2 px-5 font-medium text-gray-600 focus:outline-none bg-white rounded-md"
               >
                 Add User
-              </a>
+              </Link>
             </div>
           </div>
 
