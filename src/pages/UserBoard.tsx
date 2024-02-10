@@ -1,14 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import UserCard from "../components/user/UserCard";
 import Layout from "../components/layout";
 import Searchbar from "../components/Searchbar";
 import SortDropdown from "../components/SortDropdown";
 import { useEffect, useState } from "react";
 import { IUser } from "../interface/user";
 import { fetchUsers } from "../api/user";
-import UserLoading from "../components/user/UserLoading";
-import ErrorMessage from "../components/ErrorMessage";
+import UserList from "../components/user/UserList";
 
 type ISort = {
   label: string;
@@ -30,7 +28,7 @@ const sortOptions: ISort[] = [
   },
 ];
 
-const UserList = () => {
+const UserBoard = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
@@ -45,11 +43,12 @@ const UserList = () => {
       setLoading(true);
       try {
         const json = await fetchUsers(searchTerm);
+        const jsonUsers = json.users.map((user) => ({
+          ...user,
+          fullName: `${user.firstName} ${user.maidenName} ${user.lastName}`,
+        }));
+
         if (!ignore) {
-          const jsonUsers = json.users.map((user) => ({
-            ...user,
-            fullName: `${user.firstName} ${user.maidenName} ${user.lastName}`,
-          }));
           setUsers(jsonUsers);
         }
       } catch (error: any) {
@@ -84,24 +83,6 @@ const UserList = () => {
     }
   });
 
-  // let decided what to render
-  let content = null;
-  if (loading) {
-    content = <UserLoading />;
-  } else if (!loading && error) {
-    content = <ErrorMessage message={error} />;
-  } else if (!loading && !error && userList.length === 0) {
-    content = <ErrorMessage message="User list is empty!" />;
-  } else {
-    content = (
-      <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-7 lg:grid-cols-3 lg:gap-10">
-        {userList.map((user) => (
-          <UserCard key={user.id} user={user} />
-        ))}
-      </div>
-    );
-  }
-
   return (
     <Layout>
       <section className="relative font-[Manrope] before:fixed before:left-0 before:top-0 before:-z-10 before:h-[435px] before:w-full before:rounded-bl-3xl before:bg-[#EAE6D7] max-md:px-4 lg:text-lg before:lg:rounded-bl-[79px]">
@@ -129,11 +110,11 @@ const UserList = () => {
             </div>
           </div>
 
-          {content}
+          <UserList loading={loading} error={error} users={userList} />
         </div>
       </section>
     </Layout>
   );
 };
 
-export default UserList;
+export default UserBoard;

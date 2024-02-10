@@ -22,9 +22,15 @@ const UserDetails = () => {
     const startFetching = async () => {
       setLoading(true);
       try {
-        const json = await fetchUser(id as string);
+        const jsonUser = await fetchUser(id as string);
+
+        const user = {
+          ...jsonUser,
+          fullName: `${jsonUser.firstName} ${jsonUser.maidenName} ${jsonUser.lastName}`,
+        };
+
         if (!ignore) {
-          setUser(json);
+          setUser(user);
         }
       } catch (error: any) {
         console.log("Error: ", error);

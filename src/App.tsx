@@ -1,12 +1,12 @@
 import { Route, Routes } from "react-router-dom";
-import UserList from "./pages/UserList";
+import UserBoard from "./pages/UserBoard";
 import UserDetails from "./pages/UserDetails";
 import NotFound from "./pages/NotFound";
 
 const App = () => {
   return (
     <Routes>
-      <Route path="/" element={<UserList />} />
+      <Route path="/" element={<UserBoard />} />
       <Route path="/users/:id" element={<UserDetails />} />
 
       <Route path="*" element={<NotFound />} />
