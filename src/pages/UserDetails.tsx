@@ -15,7 +15,7 @@ const UserDetails = () => {
   const [error, setError] = useState<string>("");
   const [user, setUser] = useState<IUser | null>(null);
 
-  // fetching users data
+  // fetching user data
   useEffect(() => {
     let ignore = false;
 
@@ -47,7 +47,7 @@ const UserDetails = () => {
     content = <UserDetailsLoading />;
   } else if (!loading && error) {
     content = <ErrorMessage message={error} />;
-  } else if (!loading && !error && !user) {
+  } else if (!loading && !error && !user?.id) {
     content = <ErrorMessage message="User Not Found!" />;
   } else {
     const { fullName, email, image, address, company } = user as IUser;
@@ -66,7 +66,7 @@ const UserDetails = () => {
         <div className="col-span-1">
           <div className="py-4 px-6">
             <h1 className="text-2xl font-semibold capitalize text-gray-800">
-              Terry Smitham Medhurst
+              {fullName}
             </h1>
 
             <div className="flex items-center mt-4 text-gray-700">
