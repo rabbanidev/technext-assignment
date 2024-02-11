@@ -1,4 +1,4 @@
-# Preview website: https://technext-assignment.netlify.app
+## Preview website: https://technext-assignment.netlify.app
 
 ## Features
 
@@ -43,7 +43,7 @@
 
    ```bash
    git clone [repository URL]
-   cd improved-tasker
+   cd technext-assignment
    ```
 
 2. Install dependencies:
